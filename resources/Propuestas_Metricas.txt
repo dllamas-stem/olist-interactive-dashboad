@@ -1,0 +1,9 @@
+df_con_fechas:
+	- df_nulos ** sin fecha de entrega
+	- df_sin_nulos ***
+
+
+PROPUESTA MÉTRICAS:
+
+- Métrica sobre que pedidos se han enviado pero porque no han llegado
+- Métrica sobre el producto mejor y peor valorado.
