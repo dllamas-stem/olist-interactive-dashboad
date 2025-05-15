@@ -1,0 +1,86 @@
+import streamlit as st
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
+
+resource= '../resources/clean_data/clean_orders.csv'
+df_orders_original = pd.read_csv(resource, encoding='utf-8')
+df_orders = df_orders_original.copy()
+df_orders.name = 'orders'
+
+resource= '../resources/clean_data/orders_by_customer.csv'
+df_customers_original = pd.read_csv(resource, encoding='utf-8')
+df_customers = df_customers_original.copy()
+df_customers.name = 'customers'
+
+df_customers['order_purchase_timestamp'] = pd.to_datetime(df_customers['order_purchase_timestamp'], errors='coerce')
+df_orders['order_delivered_customer_date'] = pd.to_datetime(df_orders['order_delivered_customer_date'], errors='coerce')
+df_orders['order_estimated_delivery_date'] = pd.to_datetime(df_orders['order_estimated_delivery_date'], errors='coerce')
+
+df_delivered = df_orders.dropna(subset=['order_delivered_customer_date', 'order_estimated_delivery_date'])
+
+df_delivered['late_days'] = (df_delivered['order_delivered_customer_date'] - df_delivered['order_estimated_delivery_date']).dt.days
+
+df_late_orders = df_delivered[df_delivered['late_days'] > 0]
+
+df_orders_with_city = pd.merge(df_delivered, df_customers[['customer_id', 'customer_city']], on='customer_id', how='left')
+
+df_late_orders_with_city = pd.merge(df_late_orders, df_customers[['customer_id', 'customer_city']], on='customer_id', how='left')
+
+total_by_city = df_orders_with_city.groupby('customer_city')['order_id'].count().rename('total_orders')
+
+late_by_city = df_late_orders_with_city.groupby('customer_city').agg(
+    late_orders=('order_id', 'count'),
+    avg_late_days=('late_days', 'mean')
+)
+
+result = pd.merge(total_by_city, late_by_city, left_index=True, right_index=True)
+
+result['late_percentage'] = (result['late_orders'] / result['total_orders']) * 100
+
+result = result.sort_values(by='late_orders', ascending=False)
+
+top10 = result.sort_values('late_orders', ascending=False).head(10)
+
+st.title("Análisis de Entregas Tardías por Ciudad (Top 10)")
+
+cities = top10.index.tolist()
+
+fig1 = px.bar(
+    top10,
+    x='late_orders',
+    y=top10.index,
+    orientation='h',
+    text='late_orders',
+    labels={'late_orders': 'Órdenes Tardías', 'customer_city': 'Ciudad'},
+    title='Cantidad de Entregas Tardías por Ciudad'
+)
+fig1.update_layout(yaxis_title='Ciudad', xaxis_title='Órdenes Tardías', height=500)
+
+fig2 = px.bar(
+    top10,
+    x='late_percentage',
+    y=top10.index,
+    orientation='h',
+    text=top10['late_percentage'].apply(lambda x: f"{x:.1f}%"),
+    labels={'late_percentage': '% Órdenes Tardías', 'customer_city': 'Ciudad'},
+    title='Porcentaje de Entregas Tardías sobre el Total'
+)
+fig2.update_layout(yaxis_title='Ciudad', xaxis_title='Porcentaje (%)', height=500)
+
+fig3 = px.bar(
+    top10,
+    x='avg_late_days',
+    y=top10.index,
+    orientation='h',
+    text=top10['avg_late_days'].round(2),
+    labels={'avg_late_days': 'Días Promedio de Retraso', 'customer_city': 'Ciudad'},
+    title='Promedio de Días de Retraso por Ciudad'
+)
+fig3.update_layout(yaxis_title='Ciudad', xaxis_title='Días de Retraso', height=500)
+
+st.plotly_chart(fig1, use_container_width=True)
+st.plotly_chart(fig2, use_container_width=True)
+st.plotly_chart(fig3, use_container_width=True)
+
+st.dataframe(result.head(10))
