@@ -57,14 +57,12 @@ fig1 = px.bar(
 )
 fig1.update_layout(yaxis_title='Ciudad', xaxis_title='Órdenes Tardías', height=500)
 
-fig2 = px.bar(
+fig2 = px.pie(
     top10,
-    x='late_percentage',
-    y=top10.index,
-    orientation='h',
-    text=top10['late_percentage'].apply(lambda x: f"{x:.1f}%"),
-    labels={'late_percentage': '% Órdenes Tardías', 'customer_city': 'Ciudad'},
-    title='Porcentaje de Entregas Tardías sobre el Total'
+    names=top10.index,
+    values='late_percentage',
+    title='Porcentaje de Entregas Tardías sobre el Total por Ciudad',
+    labels={'customer_city': 'Ciudad', 'late_percentage': 'Porcentaje (%)'},
 )
 fig2.update_layout(yaxis_title='Ciudad', xaxis_title='Porcentaje (%)', height=500)
 
@@ -83,4 +81,19 @@ st.plotly_chart(fig1, use_container_width=True)
 st.plotly_chart(fig2, use_container_width=True)
 st.plotly_chart(fig3, use_container_width=True)
 
-st.dataframe(result.head(10))
+
+print(result.columns.values)
+renamed_columns_map = {
+    'total_orders': 'Pedidos',
+    'late_orders': 'Entregados con retraso',
+    'avg_late_days': 'Media de días de retraso en la entrega',
+    'late_percentage': 'Porcentaje'
+}
+renamed_index_map = {
+    'customer_city': 'Ciudad',
+}
+pretty_result = result.copy()
+pretty_result.rename(index=renamed_index_map, columns=renamed_columns_map, inplace=True)
+print(pretty_result)
+
+st.dataframe(pretty_result.head(10))
