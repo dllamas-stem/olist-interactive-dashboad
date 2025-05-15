@@ -13,6 +13,9 @@ pages = {
         st.Page("pages/reviews.py", title="Número de reviews")
     ],
     "Apartados extra" : [
+        st.Page("pages/sents_orders.py", title="Análisis de pedidos entregados"),
+        st.Page("pages/product_analitics.py", title="Análisis de productos"),
+        st.Page("pages/sellers.py", title="Análisis de vendedores")
     ]
 }
 
