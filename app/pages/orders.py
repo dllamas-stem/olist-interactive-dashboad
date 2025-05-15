@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 import plotly.express as px
 
-resource= '../resources/clean_data/orders_by_customer.csv'
+resource= '../resources/clean_data/clean_orders_by_customer.csv'
 df_orders_by_customer_original = pd.read_csv(resource, encoding='utf-8')
 df_orders_by_customer = df_orders_by_customer_original.copy()
 df_orders_by_customer.name = 'orders by customers'
@@ -11,10 +11,9 @@ df_orders_by_customer.name = 'orders by customers'
 df_top_5_estados = df_orders_by_customer.groupby('customer_state').size().sort_values(ascending=False).head(5)
 
 df_orders_top5 = df_orders_by_customer[df_orders_by_customer['customer_state'].isin(df_top_5_estados.index.tolist())]
-
 orders_per_city_state = (
-    df_orders_top5.groupby(['customer_state', 'customer_city'])
-                  .size()
+    df_orders_top5.groupby(['customer_state', 'customer_city'])['order_id']
+                  .nunique()
                   .reset_index(name='num_orders')
 )
 
