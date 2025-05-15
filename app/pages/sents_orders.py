@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 df_orders = pd.read_csv('../resources/clean_data/clean_orders.csv', encoding='utf-8')
-df_customers = pd.read_csv('../resources/clean_data/orders_by_customer.csv', encoding='utf-8')
+df_customers = pd.read_csv('../resources/clean_data/clean_orders_by_customer.csv', encoding='utf-8')
 
 df_orders_with_state = pd.merge(
     df_orders,

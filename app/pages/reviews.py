@@ -8,7 +8,7 @@ df_orders_original = pd.read_csv(resource, encoding='utf-8')
 df_orders = df_orders_original.copy()
 df_orders.name = 'orders'
 
-resource= '../resources/clean_data/orders_by_customer.csv'
+resource= '../resources/clean_data/clean_orders_by_customer.csv'
 df_customers_original = pd.read_csv(resource, encoding='utf-8')
 df_customers = df_customers_original.copy()
 df_customers.name = 'customers'
