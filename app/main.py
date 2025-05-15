@@ -4,13 +4,13 @@ import streamlit as st
 
 pages = {
     "Presentación" : [
-        st.Page("introduction.py", title="Introducción")
+        st.Page("pages/introduction.py", title="Introducción")
     ],
     "Apartados obligatorios" : [
-        st.Page("customers.py", title="Clasificación de clientes por estado"),
-        st.Page("orders.py", title="Número de pedidos por ciudad"),
-        st.Page("late_orders.py", title="Número de pedidos con retraso por ciudad"),
-        st.Page("reviews.py", title="Número de reviews")
+        st.Page("pages/customers.py", title="Clasificación de clientes por estado"),
+        st.Page("pages/orders.py", title="Número de pedidos por ciudad"),
+        st.Page("pages/late_orders.py", title="Número de pedidos con retraso por ciudad"),
+        st.Page("pages/reviews.py", title="Número de reviews")
     ],
     "Apartados extra" : [
     ]
