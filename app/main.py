@@ -15,7 +15,8 @@ pages = {
     "Apartados extra" : [
         st.Page("pages/extras/sents_orders.py", title="Análisis de pedidos entregados"),
         st.Page("pages/extras/product_analitics.py", title="Análisis de productos"),
-        st.Page("pages/extras/sellers.py", title="Análisis de vendedores")
+        st.Page("pages/extras/sellers.py", title="Análisis de vendedores"),
+        st.Page("pages/extras/economy.py", title="Análisis económico")
     ]
 }
 
