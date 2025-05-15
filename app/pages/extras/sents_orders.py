@@ -42,30 +42,33 @@ y el **porcentaje de no entregas** sobre el total de pedidos enviados.
 
 st.dataframe(df_stats)
 
-col1, col2 = st.columns(2)
-with col1: 
-    st.subheader("Total de pedidos enviados por estado")
-    fig_total_sent = px.bar(
-        df_stats,
-        x='state',
-        y='total_sent',
-        title="Total de Pedidos Enviados por Estado",
-        color_discrete_sequence=['blue'],
-        labels={'state': 'Estado', 'total_sent': 'Pedidos Enviados'}
-    )
-    st.plotly_chart(fig_total_sent, use_container_width=True)
+df_stats['delivered'] = df_stats['total_sent'] - df_stats['undelivered']
 
-with col2: 
-    st.subheader("Pedidos enviados pero no entregados")
-    fig_undelivered = px.bar(
-        df_stats,
-        x='state',
-        y='undelivered',
-        title="Pedidos No Entregados por Estado",
-        color_discrete_sequence=['red'],
-        labels={'state': 'Estado', 'undelivered': 'No Entregados'}
-    )
-    st.plotly_chart(fig_undelivered, use_container_width=True)
+df_stack = df_stats[['state', 'delivered', 'undelivered']].melt(
+    id_vars='state',
+    var_name='status',
+    value_name='cantidad'
+)
+
+df_stack['status'] = df_stack['status'].replace({
+    'delivered': 'Entregados',
+    'undelivered': 'No Entregados'
+})
+
+st.subheader("Pedidos Entregados vs No Entregados por Estado (Top 10)")
+
+fig_stacked = px.bar(
+    df_stack,
+    x='state',
+    y='cantidad',
+    color='status',
+    title='Pedidos Enviados por Estado (Entregados vs No Entregados)',
+    labels={'state': 'Estado', 'cantidad': 'Número de Pedidos'},
+    color_discrete_map={'Entregados': 'lime', 'No Entregados': 'red'}
+)
+
+fig_stacked.update_layout(barmode='stack', xaxis_tickangle=-45)
+st.plotly_chart(fig_stacked, use_container_width=True)
 
 st.subheader("Porcentaje de pedidos no entregados sobre enviados (Top 10)")
 fig_pie = px.pie(
