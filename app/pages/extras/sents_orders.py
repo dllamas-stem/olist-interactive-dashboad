@@ -32,7 +32,7 @@ for state in df_sent['customer_state'].dropna().unique():
     })
 
 df_stats = pd.DataFrame(stats)
-df_stats = df_stats.sort_values('total_sent', ascending=False).head(10).reset_index()
+df_stats = df_stats.sort_values('total_sent', ascending=False).head(10).reset_index().drop(columns=['index'])
 
 st.title("Análisis de Entregas por Estado")
 st.markdown("""
@@ -40,7 +40,15 @@ Se muestran los estados con más pedidos **enviados**, cuántos de ellos **no ha
 y el **porcentaje de no entregas** sobre el total de pedidos enviados.
 """)
 
-st.dataframe(df_stats)
+pretty_df_stats = df_stats.copy()
+columns_map = {
+    'state': 'Estado',
+    'total_sent': 'Pedidos enviados',
+    'undelivered': 'Pedidos no entregados',
+    'undelivered_percentage': 'Porcentaje pedidos no entregados'
+}
+pretty_df_stats.rename(columns=columns_map, inplace=True)
+st.dataframe(pretty_df_stats)
 
 df_stats['delivered'] = df_stats['total_sent'] - df_stats['undelivered']
 
