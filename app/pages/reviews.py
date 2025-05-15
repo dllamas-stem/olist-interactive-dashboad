@@ -50,7 +50,15 @@ result_reviews = result_reviews.sort_values('total_reviews', ascending=False)
 
 st.title("Análisis de Reseñas por Estado")
 st.write("Este análisis muestra el número de reseñas por estado y el puntaje promedio de reseñas para entregas a tiempo.")
-st.dataframe(result_reviews.head(10))
+
+pretty_result_reviews = result_reviews.copy()
+columns_map = {
+    'total_reviews': 'Reviews totales',
+    'avg_score': 'Nota media'
+}
+pretty_result_reviews.index.names = ['Estado']
+pretty_result_reviews.rename(columns=columns_map, inplace=True)
+st.dataframe(pretty_result_reviews.head(10))
 
 st.subheader("Número total de reseñas por estado")
 fig_reviews = px.bar(

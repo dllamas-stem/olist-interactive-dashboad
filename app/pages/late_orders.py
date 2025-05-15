@@ -21,6 +21,7 @@ df_delivered = df_orders.dropna(subset=['order_delivered_customer_date', 'order_
 
 df_delivered['late_days'] = (df_delivered['order_delivered_customer_date'] - df_delivered['order_estimated_delivery_date']).dt.days
 
+
 df_late_orders = df_delivered[df_delivered['late_days'] > 0]
 
 df_orders_with_city = pd.merge(df_delivered, df_customers[['customer_id', 'customer_city']], on='customer_id', how='left')
@@ -30,9 +31,9 @@ df_late_orders_with_city = pd.merge(df_late_orders, df_customers[['customer_id',
 total_by_city = df_orders_with_city.groupby('customer_city')['order_id'].count().rename('total_orders')
 
 late_by_city = df_late_orders_with_city.groupby('customer_city').agg(
-    late_orders=('order_id', 'count'),
-    avg_late_days=('late_days', 'mean')
-)
+    late_orders=pd.NamedAgg(column='order_id', aggfunc='count'),
+    avg_late_days=pd.NamedAgg(column='late_days', aggfunc='mean')
+).round()
 
 result = pd.merge(total_by_city, late_by_city, left_index=True, right_index=True)
 
@@ -82,18 +83,14 @@ st.plotly_chart(fig2, use_container_width=True)
 st.plotly_chart(fig3, use_container_width=True)
 
 
-print(result.columns.values)
 renamed_columns_map = {
     'total_orders': 'Pedidos',
     'late_orders': 'Entregados con retraso',
-    'avg_late_days': 'Media de días de retraso en la entrega',
+    'avg_late_days': 'Media de días de retraso',
     'late_percentage': 'Porcentaje'
 }
-renamed_index_map = {
-    'customer_city': 'Ciudad',
-}
-pretty_result = result.copy()
-pretty_result.rename(index=renamed_index_map, columns=renamed_columns_map, inplace=True)
-print(pretty_result)
 
+pretty_result = result.copy()
+pretty_result.index.names = ['Ciudad']
+pretty_result.rename(columns=renamed_columns_map, inplace=True)
 st.dataframe(pretty_result.head(10))
