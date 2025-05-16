@@ -30,8 +30,8 @@ merged = pd.merge(customers_per_city_state, orders_per_city_state,
 
 total_orders = merged['num_orders'].sum()
 
-merged['order_pct'] = (merged['num_orders'] / total_orders * 100).round(2)
-merged['avg_orders_per_customer'] = (merged['num_orders'] / merged['num_customers']).round(2)
+merged['order_pct'] = (merged['num_orders'] / total_orders * 100).round(2).astype(str) + '%'
+merged['avg_orders_per_customer'] = (merged['num_orders'] / merged['num_customers']).round(2).astype(str) + '%'
 
 sorted_table = merged.sort_values(['customer_state', 'num_customers'], ascending=[True, False])
 
@@ -42,14 +42,14 @@ st.title('Numero de pedidos por ciudad')
 st.write('Los 20 ciudades con más pedidos en los 5 estados principales')
 fig = px.pie(
     top_cities,
-    width=800,
+    width=900,
     height=700,
     names='city_label',
     values='num_orders',
     title='Distribución de pedidos por ciudad y el porcentaje de pedidos que representa',
     hole=0.3
 )
-
+fig.update_traces(text=top_cities['order_pct'], textinfo='text')
 st.plotly_chart(fig, use_container_width=True)
 st.write(f'Total de pedidos: {total_orders}')
 

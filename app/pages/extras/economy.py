@@ -96,3 +96,45 @@ fig = px.area(
 fig.update_traces(mode='lines+markers', marker=dict(size=10))
 fig.update_layout(xaxis_tickangle=-45)
 st.plotly_chart(fig, use_container_width=True)
+
+
+
+st.title("Análisis de Ingresos por día")
+st.markdown("Selecciona un mes para ver el total generado diariamente.")
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+
+available_months = df_filtered['order_purchase_month_name'].unique()
+
+
+selected_month_index = None
+selected_month = available_months[0]
+
+cols = st.columns(6)
+for i, month in enumerate(months):
+    with cols[i % 6]:
+        if month in available_months:
+            if st.button(month):
+                    selected_month = month
+                    selected_month_index = i
+        else:
+            st.markdown(f"**{month}**")
+
+
+df_daily_revenue = df_filtered[df_filtered['order_purchase_month_name'] == selected_month].groupby(by=['order_purchase_day']).agg(
+    total_generated=('payment_value', 'sum')
+).reset_index()
+
+if selected_month:
+    fig2 = px.area(
+            df_daily_revenue,
+            x='order_purchase_day',
+            y='total_generated',
+            title=f'Total Generado en {selected_month}',
+            labels={'order_purchase_day': 'Día', 'total_generated': 'Ingresos Generados'},
+            color_discrete_sequence=['teal']
+        )
+
+    fig2.update_traces(mode='lines+markers', marker=dict(size=10))
+    fig2.update_layout(xaxis_tickangle=-45)
+    st.plotly_chart(fig2, use_container_width=True)
