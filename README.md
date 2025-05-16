@@ -22,4 +22,4 @@ This dashboard helps store managers and sales teams make data-driven decisions. 
 
 ## Dashboard URL 
 
-### - **https://olist-dashboardo.streamlit.app/**
+### **https://olist-dashboardo.streamlit.app/**
