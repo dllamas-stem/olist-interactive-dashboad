@@ -49,10 +49,11 @@ fig_revenue.update_layout(uniformtext_minsize=8, xaxis_tickangle=-45, height=500
 st.plotly_chart(fig_revenue, use_container_width=True)
 
 st.subheader("Top 20 Productos que mas dinero han generado")
-pretty_df_products_total_generated = df_products_total_generated.copy().reset_index(drop=True)
+pretty_df_products_total_generated = df_products_total_generated.copy().reset_index(drop=True).sort_values(by='total_generated', ascending=False)
 columns_map={
     'product_id': 'ID producto',
-    
+    'times_buyed': 'Veces comprado',
+    'total_generated': 'Total generado'
 }
 pretty_df_products_total_generated.rename(columns=columns_map, inplace=True)
-st.dataframe(pretty_df_products_total_generated.sort_values(by='total_generated', ascending=False).head(20))
+st.dataframe(pretty_df_products_total_generated.head(20))
