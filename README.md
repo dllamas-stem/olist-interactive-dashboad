@@ -1,6 +1,6 @@
-# 📊 Interactive Dashboard - Brazilian Shop
+# 📊 Interactive Dashboard - Olist Shop
 
-Welcome to the **Brazilian Shop Interactive Dashboard** project. This dashboard provides a clear, interactive, and strategic view of key retail metrics to support business decisions.
+Welcome to the **Olist Shop Interactive Dashboard** project. This dashboard provides a clear, interactive, and strategic view of key retail metrics to support business decisions.
 
 ## 📌 Description
 
