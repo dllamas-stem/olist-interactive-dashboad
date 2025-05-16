@@ -58,7 +58,7 @@ columns_map = {
 }
 pretty_result_reviews.index.names = ['Estado']
 pretty_result_reviews.rename(columns=columns_map, inplace=True)
-st.dataframe(pretty_result_reviews.head(10))
+st.dataframe(pretty_result_reviews.head(10), use_container_width=True)
 
 st.subheader("Número total de reseñas por estado")
 fig_reviews = px.bar(

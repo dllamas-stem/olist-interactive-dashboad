@@ -39,6 +39,7 @@ df_orders_full['order_purchase_month'] = df_orders_full['order_purchase_timestam
 df_orders_full['order_purchase_month_name'] = df_orders_full['order_purchase_timestamp'].dt.month_name()
 df_orders_full['order_purchase_day'] = df_orders_full['order_purchase_timestamp'].dt.day
 
+
 # STREAMLIT
 st.title("Análisis de Ingresos y Ventas por Producto")
 st.markdown("""
@@ -68,7 +69,7 @@ columns_map={
     'total_generated': 'Total generado'
 }
 pretty_df_products_total_generated.rename(columns=columns_map, inplace=True)
-st.dataframe(pretty_df_products_total_generated.head(20))
+st.dataframe(pretty_df_products_total_generated.head(20), use_container_width=True)
 
 st.title("Análisis de Ingresos por Mes")
 st.markdown("Selecciona un año para ver el total generado por mes.")

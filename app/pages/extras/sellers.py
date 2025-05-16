@@ -40,7 +40,7 @@ columns_map = {
     'total_generated': 'Total generado'
 }
 pretty_df_seller_metrics.rename(columns=columns_map, inplace=True)
-st.dataframe(pretty_df_seller_metrics.head(20))
+st.dataframe(pretty_df_seller_metrics.head(20), use_container_width=True)
 
 fig = px.scatter(
     df_seller_metrics,

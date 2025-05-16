@@ -21,4 +21,5 @@ pages = {
 }
 
 pg = st.navigation(pages)
+st.set_page_config(layout="wide")
 pg.run()

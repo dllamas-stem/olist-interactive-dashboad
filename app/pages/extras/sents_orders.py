@@ -48,7 +48,7 @@ columns_map = {
     'undelivered_percentage': 'Porcentaje pedidos no entregados'
 }
 pretty_df_stats.rename(columns=columns_map, inplace=True)
-st.dataframe(pretty_df_stats)
+st.dataframe(pretty_df_stats, use_container_width=True)
 
 df_stats['delivered'] = df_stats['total_sent'] - df_stats['undelivered']
 

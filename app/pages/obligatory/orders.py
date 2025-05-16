@@ -66,7 +66,7 @@ columns_map = {
     }
 
 pretty_top_cities.rename(columns=columns_map, inplace=True)
-st.dataframe(pretty_top_cities)
+st.dataframe(pretty_top_cities, use_container_width=True)
 
 st.subheader("\n¿Que te transmite esta informacion?")
 st.write("En este gráfico podemos detectar la gran diferencia de pedidos de la primera ciudad respecto a las demás.")

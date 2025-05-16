@@ -93,4 +93,4 @@ renamed_columns_map = {
 pretty_result = result.copy()
 pretty_result.index.names = ['Ciudad']
 pretty_result.rename(columns=renamed_columns_map, inplace=True)
-st.dataframe(pretty_result.head(10))
+st.dataframe(pretty_result.head(10), use_container_width=True)
