@@ -10,12 +10,6 @@ df_customers.name = 'customers'
 
 customers_per_state = df_customers['customer_state'].value_counts()
 
-customers_per_city_state = (
-    df_customers.groupby(['customer_state', 'customer_city'])
-           .size()
-           .reset_index(name='num_customers')
-           .sort_values(['customer_state', 'num_customers'], ascending=[True, False])
-)
 
 df_customers['order_purchase_timestamp'] = pd.to_datetime(df_customers['order_purchase_timestamp'], errors='coerce')
 
@@ -43,6 +37,13 @@ if isinstance(date_range, tuple) and len(date_range) == 2 and all(date_range):
     st.write('Los estados con más clientes')
     st.bar_chart(df_top5, use_container_width=True)
     st.write('Selecciona el estado que deseas ver')
+    customers_per_city_state = (
+    df_filtered.groupby(['customer_state', 'customer_city'])
+           .size()
+           .reset_index(name='num_customers')
+           .sort_values(['customer_state', 'num_customers'], ascending=[True, False])
+    )
+
     selected_state = st.selectbox('Selecciona el estado', customers_per_state.index.tolist())
     top_cities = customers_per_city_state[customers_per_city_state['customer_state'] == selected_state].sort_values('num_customers', ascending=False).head(10)
 
