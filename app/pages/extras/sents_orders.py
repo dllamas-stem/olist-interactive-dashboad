@@ -22,7 +22,7 @@ for state in df_sent['customer_state'].dropna().unique():
     total_sent_state = df_state.shape[0]
     df_state_not_delivered = df_state[df_state['order_delivered_customer_date'].isna()]
     undelivered_count_state = df_state_not_delivered.shape[0]
-    undelivered_percentage_state = (undelivered_count_state / total_sent_state) * 100 if total_sent_state > 0 else 0
+    undelivered_percentage_state = str(round(((undelivered_count_state / total_sent_state) * 100))) + '%' if total_sent_state > 0 else 0
 
     stats.append({
         'state': state,
@@ -80,11 +80,13 @@ st.plotly_chart(fig_stacked, use_container_width=True)
 
 st.subheader("Porcentaje de pedidos no entregados sobre enviados (Top 10)")
 fig_pie = px.pie(
-    df_stats,
+    df_stats[['undelivered', 'state']],
+    width=900,
+    height=700,
     names='state',
-    values='undelivered_percentage',
+    values='undelivered',
     title='Porcentaje de Pedidos No Entregados por Estado',
     hole=0.3,
 )
-fig_pie.update_traces(textinfo='label+percent')
+fig_pie.update_traces(textinfo='label+text', text=df_stats['undelivered_percentage'])
 st.plotly_chart(fig_pie, use_container_width=True)
