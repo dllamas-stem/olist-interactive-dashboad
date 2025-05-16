@@ -12,15 +12,9 @@ df_orders_items_payments = pd.merge(
     right=df_order_payments,
     right_on='order_id',
     how='left'
-)
+).reset_index()
 
-df_orders_full = pd.merge(
-    left=df_orders.drop(columns='order_status').drop_duplicates(),
-    right=df_orders_items_payments,
-    on='order_id'
-)
-
-df_products_total_generated = df_orders_full.groupby('product_id').agg(
+df_products_total_generated = df_orders_items_payments.groupby('product_id').agg(
     times_buyed=('payment_value', 'count'),
     total_generated=('payment_value', 'sum')
 ).reset_index()
@@ -34,7 +28,7 @@ basado en los datos de pedidos, ítems y pagos.
 """)
 
 st.subheader("Top 10 Productos con Mayor Ingreso Generado")
-
+print(df_products_total_generated)
 fig_revenue = px.bar(
     top10_revenue,
     x='product_id',
@@ -49,7 +43,7 @@ fig_revenue.update_layout(uniformtext_minsize=8, xaxis_tickangle=-45, height=500
 st.plotly_chart(fig_revenue, use_container_width=True)
 
 st.subheader("Top 20 Productos que mas dinero han generado")
-pretty_df_products_total_generated = df_products_total_generated.copy().reset_index(drop=True).sort_values(by='total_generated', ascending=False)
+pretty_df_products_total_generated = df_products_total_generated.copy().sort_values(by='total_generated', ascending=False).reset_index(drop=True)
 columns_map={
     'product_id': 'ID producto',
     'times_buyed': 'Veces comprado',

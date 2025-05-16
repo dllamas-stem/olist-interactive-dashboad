@@ -67,12 +67,12 @@ fig2 = px.pie(
 )
 fig2.update_layout(yaxis_title='Ciudad', xaxis_title='Porcentaje (%)', height=500)
 
+df_sorted_by_avg_late_days = top10.sort_values(by='avg_late_days', ascending=False)
 fig3 = px.bar(
-    top10,
+    df_sorted_by_avg_late_days,
     x='avg_late_days',
-    y=top10.index,
+    y=df_sorted_by_avg_late_days.index,
     orientation='h',
-    text=top10['avg_late_days'].round(2),
     labels={'avg_late_days': 'Días Promedio de Retraso', 'customer_city': 'Ciudad'},
     title='Promedio de Días de Retraso por Ciudad'
 )

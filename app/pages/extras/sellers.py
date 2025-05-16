@@ -58,4 +58,16 @@ fig = px.scatter(
 )
 
 fig.update_layout(height=600, xaxis_type='log', yaxis_range=[0, 5])  
+
+fig2 = px.bar(
+    df_seller_metrics.sort_values(by=['total_generated'], ascending=False).head(10),
+    x='total_generated',
+    y='seller_id',
+    orientation='h',
+    labels={'total_generated': 'Total generado', 'seller_id': 'ID vendedor'},
+    title='Dinero total generado por vendedor'
+)
+fig2.update_layout(yaxis_title='ID Vendedor', xaxis_title='Dinero total generado', height=500)
+
 st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig2, use_container_width=True)
