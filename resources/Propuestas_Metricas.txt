@@ -1,0 +1,19 @@
+df_con_fechas:
+	- df_nulos ** sin fecha de entrega
+	- df_sin_nulos ***
+
+
+PROPUESTA MÉTRICAS:
+
+- Métrica sobre que pedidos se han enviado pero porque no han llegado
+- Métrica sobre el producto mejor y peor valorado.
+- Métrica sobre sellers.
+- Métrica sobre que día de la semana se venden más y menos (Si ordenamos por ventas descendientes, head(1) el mejor, tail(1) el peor).
+- Métrica sobre que semana del mes se venden más y menos (Si ordenamos por ventas descendientes, head(1) el mejor, tail(1) el peor).
+- Métrica sobre que mes se venden más y menos (Si ordenamos por ventas descendientes, head(1) el mejor, tail(1) el peor).
+- Al mergear orders y products, puede que salgan productos que no se han vendido nunca, comprobar y si es buena métrica añadir.
+- Productos más vendidos por meses
+- Ganancias mensuales y anuales
+- Zonas en las que se genera más dinero
+- Dinero generado por productos
+- Dinero generado por día?
