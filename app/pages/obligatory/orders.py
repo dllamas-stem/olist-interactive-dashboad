@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 import plotly.express as px
 
-resource= '../resources/clean_data/clean_orders_by_customer.csv'
+resource= 'resources/clean_data/clean_orders_by_customer.csv'
 df_orders_by_customer_original = pd.read_csv(resource, encoding='utf-8')
 df_orders_by_customer = df_orders_by_customer_original.copy()
 df_orders_by_customer.name = 'orders by customers'

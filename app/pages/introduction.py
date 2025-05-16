@@ -11,9 +11,9 @@ para encontrar patrones valiosos y mejorar la toma de decisiones del negocio.
 st.header("Participantes del Proyecto")
 
 participantes = [
-    {"nombre": "Marcos Ballesteros", "imagen": "../resources/images/marcos.png"},
-    {"nombre": "Daniel Llamas", "imagen": "../resources/images/llamas.png"},
-    {"nombre": "Carlos Muñoz", "imagen": "../resources/images/carlos.jpg"}
+    {"nombre": "Marcos Ballesteros", "imagen": "resources/images/marcos.png"},
+    {"nombre": "Daniel Llamas", "imagen": "resources/images/llamas.png"},
+    {"nombre": "Carlos Muñoz", "imagen": "resources/images/carlos.jpg"}
 ]
 
 for p in participantes:

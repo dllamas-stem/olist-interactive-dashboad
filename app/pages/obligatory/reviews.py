@@ -3,17 +3,17 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 
-resource= '../resources/clean_data/clean_orders.csv'
+resource= 'resources/clean_data/clean_orders.csv'
 df_orders_original = pd.read_csv(resource, encoding='utf-8')
 df_orders = df_orders_original.copy()
 df_orders.name = 'orders'
 
-resource= '../resources/clean_data/clean_orders_by_customer.csv'
+resource= 'resources/clean_data/clean_orders_by_customer.csv'
 df_customers_original = pd.read_csv(resource, encoding='utf-8')
 df_customers = df_customers_original.copy()
 df_customers.name = 'customers'
 
-resource= '../resources/clean_data/clean_order_reviews_review_comments_no_null.csv'
+resource= 'resources/clean_data/clean_order_reviews_review_comments_no_null.csv'
 df_order_reviews_original = pd.read_csv(resource, encoding='utf-8')
 df_order_reviews = df_order_reviews_original.copy()
 df_order_reviews.name = 'order_reviews'

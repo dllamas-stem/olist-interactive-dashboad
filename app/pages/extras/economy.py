@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-df_orders = pd.read_csv('../resources/clean_data/clean_orders.csv', encoding='utf-8')
-df_order_items = pd.read_csv('../resources/clean_data/clean_order_items.csv', encoding='utf-8')
-df_order_payments = pd.read_csv('../resources/clean_data/clean_order_payments.csv', encoding='utf-8')
+df_orders = pd.read_csv('resources/clean_data/clean_orders.csv', encoding='utf-8')
+df_order_items = pd.read_csv('resources/clean_data/clean_order_items.csv', encoding='utf-8')
+df_order_payments = pd.read_csv('resources/clean_data/clean_order_payments.csv', encoding='utf-8')
 
 df_orders_items_payments = pd.merge(
     left=df_order_items,
