@@ -20,24 +20,12 @@ Este dashboard ajuda gestores de loja e equipes de vendas a tomarem decisões ba
 
 ## 🧰 Tecnologias Utilizadas
 
-- Python 3.10+
-- Plotly Dash / Streamlit / Power BI
+- Python 3.11+
+- Plotly Dash / Streamlit
 - Pandas, NumPy
 - Seaborn / Matplotlib
 - Jupyter Notebook
-- SQLite / PostgreSQL (opcional para persistência de dados)
 
-## 📁 Estrutura do Projeto
-```markdown
-.
-├── data/
-│ ├── vendas.csv
-│ ├── clientes.csv
-│ └── produtos.csv
-├── dashboard/
-│ └── app.py
-├── notebooks/
-│ └── analise_exploratoria.ipynb
-├── requirements.txt
-└── README.md
-```
+## Dashboard URL 
+
+### - **https://olist-dashboardo.streamlit.app/**
