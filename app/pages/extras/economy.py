@@ -121,11 +121,12 @@ for i, month in enumerate(months):
             st.markdown(f"**{month}**")
 
 
-df_daily_revenue = df_filtered[df_filtered['order_purchase_month_name'] == selected_month].groupby(by=['order_purchase_day']).agg(
-    total_generated=('payment_value', 'sum')
-).reset_index()
-
 if selected_month:
+    df_daily_revenue = df_filtered[df_filtered['order_purchase_month_name'] == selected_month].groupby(by=['order_purchase_day']).agg(
+        total_generated=('payment_value', 'sum')
+    ).reset_index()
+    selected_month_revenue = df_monthly_revenue[df_monthly_revenue['order_purchase_month_name'] == selected_month]
+    st.subheader(f"Total generado en {selected_month}: **{selected_month_revenue['total_generated'].item()}**R$")
     fig2 = px.area(
             df_daily_revenue,
             x='order_purchase_day',

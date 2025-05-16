@@ -13,7 +13,6 @@ df_oi_orders = df_order_items.merge(
 
 df_oi_orders['total_price'] = df_oi_orders['price'] + df_oi_orders['freight_value']
 
-print(df_oi_orders.columns)
 
 df_oi_orders_reviews = df_oi_orders.merge(
     df_order_reviews[['order_id', 'review_score']],

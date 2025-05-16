@@ -31,7 +31,7 @@ merged = pd.merge(customers_per_city_state, orders_per_city_state,
 total_orders = merged['num_orders'].sum()
 
 merged['order_pct'] = (merged['num_orders'] / total_orders * 100).round(2).astype(str) + '%'
-merged['avg_orders_per_customer'] = (merged['num_orders'] / merged['num_customers']).round(2).astype(str) + '%'
+merged['avg_orders_per_customer'] = (merged['num_orders'] / merged['num_customers']).round(2)
 
 sorted_table = merged.sort_values(['customer_state', 'num_customers'], ascending=[True, False])
 
