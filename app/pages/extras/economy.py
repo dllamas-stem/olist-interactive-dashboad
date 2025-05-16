@@ -108,7 +108,7 @@ available_months = df_filtered['order_purchase_month_name'].unique()
 
 
 selected_month_index = None
-selected_month = available_months[0]
+selected_month = None
 
 cols = st.columns(6)
 for i, month in enumerate(months):
