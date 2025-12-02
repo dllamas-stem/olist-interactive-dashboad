@@ -14,12 +14,13 @@ This dashboard helps store managers and sales teams make data-driven decisions. 
 
 ## 🧰 Technologies Used
 
-- Python 3.11+
+- Python 3.11
 - Plotly Dash / Streamlit
 - Pandas, NumPy
 - Seaborn / Matplotlib
 - Jupyter Notebook
 
 ## Dashboard URL 
-
 ### **https://olist-dashboardo.streamlit.app/**
+
+# test
